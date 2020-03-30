@@ -1,3 +1,5 @@
+from client_secrets import DISCORD_TOKEN
+
 import discord
 from discord.ext import commands
 
@@ -5,7 +7,6 @@ import pprint
 import json
 import random_builds as rb
 
-CLIENT_TOKEN = 'NjkzNjEwMDM4OTM3NTE4MTMx.Xn_lDA.McE7bDlJ_HlLw8tSay_efUbF6jo'
 
 CHAMP_ICON_BASE_URL = 'http://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/'
 
@@ -13,17 +14,14 @@ client = commands.Bot(command_prefix='!')
 
 @client.event
 async def on_ready():
-	print('client is ready.')
+	print('Bot client is ready.')
+
 
 @client.command()
 async def ping(ctx):
     await ctx.send('pong')
 
-@client.command()
-async def build(ctx):
-	await ctx.send(wrap_code(rb.generate_random_loadout()))
 
-@client.command()
 async def abuild(ctx, *args):
 	is_custom_command = False
 	if args:
@@ -72,11 +70,7 @@ async def abuild(ctx, *args):
 	await ctx.send(embed=embed)
 
 
-@client.command()
-async def image_test(ctx):
-	await ctx.send(r'![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png')
-
 def wrap_code(text):
 	return '```json\n' + json.dumps(text, indent=4) + '```'
 
-client.run(CLIENT_TOKEN)
+client.run(DISCORD_TOKEN)

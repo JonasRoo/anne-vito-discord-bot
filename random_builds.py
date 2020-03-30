@@ -2,6 +2,7 @@ from typing import Dict, List
 
 from collections import Counter
 from pprint import pprint
+import os
 import json
 import random
 import copy
@@ -12,69 +13,66 @@ import pandas as pd
 # the default join char for rendering lists as strings
 JOIN_CHAR = ' | '
 
+def get_ddragon_raw_data(file_name: str) -> Dict[any, any]:
+    file_path = os.path.join('DDRAGON', file_name)
+    with open(file_path, 'r', encoding='utf-8') as file:
+        raw_data = json.load(file)
+    return raw_data
+
 def load_data():
 
-	# ---------------------------- CHAMPIONS ----------------------------
-	CHAMPIONS_FILE_PATH = r'C:\Users\Jonas\Desktop\dev\ironnovator-bot\DDRAGON\champions.json'
+    # ---------------------------- CHAMPIONS ----------------------------
+    champions_raw_data = get_ddragon_raw_data('champions.json')
+    champions = pd.DataFrame(champions_raw_data['data']).transpose()
 
-	with open(CHAMPIONS_FILE_PATH, 'r', encoding='utf-8') as champions_file:
-	    champions_raw_data = json.load(champions_file)
-	champions = pd.DataFrame(champions_raw_data['data']).transpose()
+    # ---------------------------- ITEMS ----------------------------
+    items_raw_data = get_ddragon_raw_data('items.json')
+    items = pd.DataFrame(items_raw_data['data']).transpose()
 
-	# ---------------------------- ITEMS ----------------------------
-	ITEMS_FILE_PATH = r'C:\Users\Jonas\Desktop\dev\build_randomizer\DDRAGON\items.json'
+    list_cols = ['from', 'into']
+    for col in list_cols:
+        items[col] = items[col].apply(lambda x: x if isinstance(x, list) else [])
 
-	with open(ITEMS_FILE_PATH, 'r', encoding='utf-8') as items_file:
-	    items_raw_data = json.load(items_file)
-	items = pd.DataFrame(items_raw_data['data']).transpose()
+    # list of all 'end' items
+    full_items = items[items.apply(
+        # is not precursor to any other item
+        lambda r: (len(r['into']) == 0) &
+        # is not champion specific
+        (pd.isna(r['requiredChampion'])) &
+        # is not an Ornn item
+        (pd.isna(r['requiredAlly'])) &
+        # is not a consumable
+        (pd.isna(r['consumed'])) &
+        # is not a consumable alternate notation
+        ('Consumable' not in r['tags']) &
+        # is not a boots item
+        ('Boots' not in r['tags']) &
+        # is not a trinket item
+        ('Trinket' not in r['tags']) &
+        # is a valid item on summoner's rift
+        (r['maps']['11']) &
+        # item is not a doran's item
+        (not 'doran' in r['name'].lower()) &
+        # also no cull
+        (r['name'].lower() != 'cull') &
+        (not 'quick charge' in r['name'].lower()),
+        axis=1)]
 
-	list_cols = ['from', 'into']
-	for col in list_cols:
-	    items[col] = items[col].apply(lambda x: x if isinstance(x, list) else [])
-
-	# list of all 'end' items
-	full_items = items[items.apply(
-	    # is not precursor to any other item
-	    lambda r: (len(r['into']) == 0) &
-	    # is not champion specific
-	    (pd.isna(r['requiredChampion'])) &
-	    # is not an Ornn item
-	    (pd.isna(r['requiredAlly'])) &
-	    # is not a consumable
-	    (pd.isna(r['consumed'])) &
-	    # is not a consumable alternate notation
-	    ('Consumable' not in r['tags']) &
-	    # is not a boots item
-	    ('Boots' not in r['tags']) &
-	    # is not a trinket item
-	    ('Trinket' not in r['tags']) &
-	    # is a valid item on summoner's rift
-	    (r['maps']['11']) &
-	    # item is not a doran's item
-	    (not 'doran' in r['name'].lower()) &
-	    # also no cull
-	    (r['name'].lower() != 'cull') &
-	    (not 'quick charge' in r['name'].lower()),
-	    axis=1)]
-
-	boots = items.loc[items.apply(lambda r: ('Boots' in r['tags']) &
+    boots = items.loc[items.apply(lambda r: ('Boots' in r['tags']) &
                               (len(r['into']) == 0),
                               axis=1)]
 
-	trinkets = items.loc[items.apply(lambda r: ('Trinket' in r['tags']) &
+    trinkets = items.loc[items.apply(lambda r: ('Trinket' in r['tags']) &
                                  (pd.isna(r['requiredChampion']) &
                                   (r['maps']['11']) &
                                   (r['gold']['base'] == 0)),
                                  axis=1)]
 
-	# ---------------------------- ITEMS ----------------------------
-	SUM_SPELLS_FILE_PATH = r'C:\Users\Jonas\Desktop\dev\build_randomizer\DDRAGON\summoner_spells.json'
+    # ---------------------------- ITEMS ----------------------------
+    ss_raw_data = get_ddragon_raw_data('summoner_spells.json')
+    summoner_spells = pd.DataFrame(ss_raw_data['data']).transpose()
 
-	with open(SUM_SPELLS_FILE_PATH, 'r', encoding='utf-8') as ss_file:
-	    ss_raw_data = json.load(ss_file)
-	summoner_spells = pd.DataFrame(ss_raw_data['data']).transpose()
-
-	return (champions, items, full_items, boots, trinkets, summoner_spells)
+    return (champions, items, full_items, boots, trinkets, summoner_spells)
 
 def get_random_item_set(is_jungle: bool = False) -> Dict[str, str]:
     item_set = {}
