@@ -21,7 +21,7 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send('pong')
 
-
+@client.command()
 async def abuild(ctx, *args):
 	is_custom_command = False
 	if args:
