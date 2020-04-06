@@ -19,7 +19,8 @@ SPELLS_RESOURCE_FILE_NAME = 'summoner_spells.json'
 
 def _validate_all_summoner_spells() -> None:
     try:
-        _ = ALL_SPELLS.info()
+        _ = ALL_SPELLS.empty()
+        del _
     except:
         raise SystemError(f'{SPELLS_RESOURCE_FILE_NAME} not properly loaded!')
 
