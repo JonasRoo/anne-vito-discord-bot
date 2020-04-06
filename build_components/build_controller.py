@@ -32,7 +32,6 @@ def convert_lists_to_strings(
         elif isinstance(v, list):
             join_char = SPECIAL_JOIN_CHARS.get(k, DEFAULT_JOIN_CHAR)
             dc[k] = join_char.join(v)
-            print(dc[k])
         else:
             continue
 
