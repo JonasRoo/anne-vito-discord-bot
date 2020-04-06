@@ -3,30 +3,30 @@
             "keystones": ["Press the Attack", "Lethal Tempo", "Fleet Footwork"],
             "level_one": ["Overheal", "Triumph", "Presence of Mind"],
             "level_two": ["Legend: Alacrity", "Legend: Tenacity", "Legend: Bloodline"],
-            "level_three": ["Coup de Grace", "Last Stand", "Cut Down"],
+            "level_three": ["Coup de Grace", "Last Stand", "Cut Down"]
         },
         "Domination": {
             "keystones": ["Predator", "Dark Harvest", "Electrocute"],
             "level_one": ["Cheapshot", "Taste of Blood", "Sudden Impact"],
             "level_two": ["Zombie Ward", "Ghost Poro", "Eyeball Collection"],
-            "level_three": ["Ravenous Hunter", "Ingenious Hunter", "Relentless Hunter", "Ultimate Hunter"],
+            "level_three": ["Ravenous Hunter", "Ingenious Hunter", "Relentless Hunter", "Ultimate Hunter"]
         },
         "Sorcery": {
             "keystones": ["Arcane Comet", "Summon Aery", "Phase Rush"],
             "level_one": ["Nullifying Orb", "Manaflow Band", "Nimbus Cloak"],
             "level_two": ["Transcendence", "Celerity", "Absolute Focus"],
-            "level_three": ["Scorch", "Waterwalking", "Gathering Storm"],
+            "level_three": ["Scorch", "Waterwalking", "Gathering Storm"]
         },
         "Resolve": {
             "keystones": ["Grasp of the Undying", "Aftershock", "Guardian"],
             "level_one": ["Demolish", "Font of Life", "Shield Bash"],
             "level_two": ["Conditioning", "Second Wind", "Bone Plating"],
-            "level_three": ["Overgrowth", "Revitalize", "Unflinching"],
+            "level_three": ["Overgrowth", "Revitalize", "Unflinching"]
         },
         "Inspiration": {
             "keystones": ["Prototype: Omnistone", "Glacial Augment", "Unsealed Spellbook"],
             "level_one": ["Hextech Flashtraption", "Magical Footwear", "Perfect Timing"],
-            "level_two": ["Future\"s Market", "Minion Dematerializer", "Biscuit Delivery"],
-            "level_three": ["Cosmic Insight", "Approach Velocity", "Time Warp Tonic"],
+            "level_two": ["Future's Market", "Minion Dematerializer", "Biscuit Delivery"],
+            "level_three": ["Cosmic Insight", "Approach Velocity", "Time Warp Tonic"]
         }
 }

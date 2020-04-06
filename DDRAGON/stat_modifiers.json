@@ -1,0 +1,5 @@
+{
+    "offence": ["Adaptive Force", "Attack Speed", "CDR"],
+    "flex": ["Adaptive Force", "Armor", "Magic Resist"],
+    "defense": ["Health", "Armor", "Magic Resist"]
+}
