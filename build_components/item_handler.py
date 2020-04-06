@@ -178,7 +178,7 @@ def get_random_item_set(is_jungle: bool,
     item_set = {}
     for category, amount in ITEM_CATEGORIES.items():
         item_set[category] = select_n_random_of_class(
-            item_class=category, n=amount)
+            item_class=category, n=amount, is_melee=is_melee)
 
     if is_jungle:
         item_set['starter_item'] = [random.choice(JUNGLE_STARTING_ITEMS)]
@@ -201,4 +201,4 @@ ALL_ITEMS = load_items()
 
 # ---------------------- DEMO ---------------------- #
 if __name__ == '__main__':
-    pprint.pprint(get_random_item_set(True, False, False))
+    pprint.pprint(get_random_item_set(True, False, True))
