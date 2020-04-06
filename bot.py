@@ -33,7 +33,8 @@ async def build(ctx, *args):
     build = build_controller.get_random_loadout(
         champion_prechoice=champion_prechoice,
         lane_prechoice=lane_prechoice)
-    embed = build_controller.convert_build_to_embed(build=build)
+    embed = build_controller.convert_build_to_embed(build=build,
+            author=ctx.author)
 
     await ctx.send(embed=embed)
 

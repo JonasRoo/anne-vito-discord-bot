@@ -72,8 +72,8 @@ def get_random_loadout(
     return loadout
 
 
-def convert_build_to_embed(build: Dict[str, Union[str, Dict[str, str]]])\
-        -> discord.Embed:
+def convert_build_to_embed(build: Dict[str, Union[str, Dict[str, str]]],
+        author=None) -> discord.Embed:
 
     embed = discord.Embed(
         title='Champion:',
@@ -81,7 +81,7 @@ def convert_build_to_embed(build: Dict[str, Union[str, Dict[str, str]]])\
         colour=discord.Colour.blue()
     )
 
-    embed.set_author(name='Anne Vito')
+    embed.set_author(name=f'@{author}' or 'Anne Vito')
     embed.set_thumbnail(url=build['champion']['icon_url'])
     # embed.set_image(
     #     url=r'https://cdn.discordapp.com/emojis/599027745061863436.png')
