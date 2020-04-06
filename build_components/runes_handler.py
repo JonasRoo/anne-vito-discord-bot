@@ -25,12 +25,12 @@ VALID_RUNE_LEVELS = ['level_one', 'level_two', 'level_three']
 
 def _validate_all_data() -> None:
     try:
-        _ = ALL_RUNES.empty()
+        _ = ALL_RUNES.empty
         del _
     except:
         raise SystemError(f'{RUNES_RESOURCE_FILE_NAME} not properly loaded!')
     try:
-        _ = ALL_STATMODS.empty()
+        _ = ALL_STATMODS.empty
         del _
     except:
         raise SystemError(f'{STATMOD_RESOURCE_FILE_NAME} not properly loaded!')

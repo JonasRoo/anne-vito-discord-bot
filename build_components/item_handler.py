@@ -49,7 +49,7 @@ RANGED_ONLY_ITEMS = ['runaan\'s hurricane']
 # ---------------------- FUNCTIONS ---------------------- #
 def _validate_all_items() -> None:
     try:
-        _ = ALL_ITEMS.empty()
+        _ = ALL_ITEMS.empty
         del _
     except:
         raise SystemError(f'{ITEMS_RESOURCE_FILE_NAME} not properly loaded!')

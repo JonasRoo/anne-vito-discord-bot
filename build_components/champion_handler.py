@@ -25,7 +25,7 @@ CHAMP_ICON_FILE_TYPE = '.png'
 
 def _validate_all_champions() -> None:
     try:
-        _ = ALL_CHAMPS.empty()
+        _ = ALL_CHAMPS.empty
         del _
     except:
         raise SystemError(f'{CHAMPIONS_RESOURCE_FILE_NAME} not properly loaded!')
