@@ -189,6 +189,7 @@ def get_random_item_set(is_jungle: bool,
     elif is_support:
         item_set['starter_item'] = select_n_random_of_class(
             item_class='support_item')[0]
+        item_set['full_item'].pop()
 
     # for category, items in item_set.items():
     #     item_set[category] = join_item_list(items)
